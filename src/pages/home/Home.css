@@ -1,0 +1,139 @@
+.container {
+  background-color: #fff;
+}
+
+.ad-area {
+  padding: 10px 40px;
+  background-color: #fff;
+}
+
+.cat-card-area {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.cat-area {
+  padding: 10px 40px;
+  background-color: #fff;
+}
+.cat-card {
+  margin: 20px;
+  width: 100%;
+  max-width: 9%;
+  text-align: center;
+}
+
+.cat-card a > img {
+  width: 90%;
+}
+
+.Mobile-area {
+  padding: 10px 40px;
+}
+.Mobile-area-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Mobile-area-title a {
+  color: blue;
+  text-decoration: none;
+  margin-right: 2px;
+}
+.Product-List-area {
+  display: flex;
+}
+.AD-content {
+  background-color: #f2f2f2;
+  display: flex;
+  padding: 5px;
+}
+.AD-content-Section {
+  margin: 10px;
+}
+.AD-Box {
+  display: flex;
+  margin-top: 10px;
+}
+.AD-Box img {
+  width: 100px;
+}
+
+@media screen and (max-width: 908px) {
+  .AD-content {
+    display: none;
+  }
+  .AD-content-Section {
+    display: none;
+  }
+  .AD-Box {
+    display: flex;
+  }
+}
+@media screen and (max-width: 908px) {
+  .cat-card-area {
+    display: flex;
+    flex-wrap: wrap;
+
+    width: 100%;
+  }
+
+  .cat-card {
+    width: 100%;
+    max-width: 10%;
+    text-align: center;
+  }
+  .cat-card h4 {
+    background-color: #fff;
+    font-size: medium;
+  }
+  .cat-card a > img {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 690px) {
+  .Product-List-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .ad-area {
+    padding: 0;
+  }
+  .cat-area h2 {
+    font-size: 20px;
+  }
+  .cat-card {
+    margin: 20px;
+    width: 100%;
+    max-width: 13%;
+    text-align: center;
+  }
+  .cat-card h4 {
+    background-color: #fff;
+    font-size: 13px;
+  }
+  .cat-card a > img {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 483px) {
+  .cat-area,
+  .Mobile-area {
+    padding: 8px;
+  }
+  .cat-card {
+    margin: 20px;
+    width: 100%;
+    max-width: 30%;
+  }
+  .cat-card h4 {
+    background-color: #fff;
+    font-size: 12px;
+  }
+  .cat-card a > img {
+    width: 100%;
+  }
+}
