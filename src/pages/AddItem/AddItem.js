@@ -8,10 +8,12 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { useDispatch, useSelector } from "react-redux";
 import { addItem } from "../../store/actions/addItemActions";
-import { serverTimestamp } from "firebase/firestore";
+// import { serverTimestamp } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "@firebase/auth";
+import { serverTimestamp } from "@firebase/firestore";
+import { Container, Typography } from "@mui/material";
 const conditionOptions = [
   "New",
   "Open Box",
@@ -19,6 +21,8 @@ const conditionOptions = [
   "Refurbished",
   "For Parts or Not Working",
 ];
+
+const conditionaLocation = ["Karachi", "Faisalabad", "Lahore", "Islamabad"];
 
 const AddItem = () => {
   const location = useLocation();
@@ -37,13 +41,11 @@ const AddItem = () => {
   const [mobileNumber, setMobileNumber] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uid, setUid] = useState(null);
-
   const [user, setUser] = useState(null);
-  // console.log("addietm", user);
-
   const dispatch = useDispatch();
 
   const [usernameInput, setUsernameInput] = useState("");
+
   useEffect(() => {
     const auth = getAuth();
     onAuthStateChanged(auth, (user) => {
@@ -127,8 +129,10 @@ const AddItem = () => {
   };
 
   return (
-    <div className="add-item-container">
-      <h2 className="add-item-title">POST YOUR AD</h2>
+    <Container maxWidth="md" className="add-item-container">
+      <Typography variant="h4" className="add-item-title">
+        POST YOUR AD
+      </Typography>
       <form onSubmit={handleSubmit} className="add-form">
         <label className="form-label">
           Category:
@@ -176,8 +180,8 @@ const AddItem = () => {
             value={condition}
             onChange={(e) => setCondition(e.target.value)}
             required
+            placeholder="Select the Condition"
           >
-            <option value="">Select the Condition</option>
             {conditionOptions.map((option) => (
               <option key={option} value={option}>
                 {option}
@@ -207,13 +211,19 @@ const AddItem = () => {
         </label>
         <label className="form-label">
           Location:
-          <input
+          <select
             className="form-input"
-            type="text"
             value={locationInput}
             onChange={(e) => setLocation(e.target.value)}
             required
-          />
+            placeholder="Select Location"
+          >
+            {conditionaLocation.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </label>
 
         <label className="form-label">
@@ -254,7 +264,7 @@ const AddItem = () => {
 
       <ToastContainer className="toast-position" position="bottom-right" />
       <BackToTopButton />
-    </div>
+    </Container>
   );
 };
 

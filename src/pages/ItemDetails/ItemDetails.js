@@ -13,7 +13,6 @@ import { fetchItemDetails } from "../../store/actions/itemDetailsActions";
 
 function ItemDetails() {
   const { itemId } = useParams();
-  // const [itemDetails, setItemDetails] = useState(null);
   const [showPhoneNumber, setShowPhoneNumber] = useState(false);
 
   const dispatch = useDispatch();
@@ -43,7 +42,6 @@ function ItemDetails() {
           {itemDetails ? (
             <img src={itemDetails.imageUrl} alt={itemDetails.title} />
           ) : (
-            // <Skeleton height={470} width={745} />
             <></>
           )}
         </div>

@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "@firebase/firestore";
 import {
   FETCH_VIEW_PRODUCTS_REQUEST,
   FETCH_VIEW_PRODUCTS_SUCCESS,

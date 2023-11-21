@@ -4,7 +4,18 @@ import {
   FETCH_PRODUCTS_FAILURE,
 } from "../actionTypes/homeActionTypes";
 
-const homeReducer = (state = {}, action) => {
+import {
+  UPDATE_PRODUCT_REQUEST,
+  UPDATE_PRODUCT_SUCCESS,
+  UPDATE_PRODUCT_FAILURE,
+} from "../actionTypes/updateProductTypes";
+
+const initialState = {
+  updateProductLoading: false,
+  updateProductError: null,
+};
+
+const homeReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_PRODUCTS_REQUEST:
       return {
@@ -21,6 +32,26 @@ const homeReducer = (state = {}, action) => {
         isLoading: false,
         error: action.payload,
       };
+    case UPDATE_PRODUCT_REQUEST:
+      return {
+        ...state,
+        updateProductLoading: true,
+        updateProductError: null,
+      };
+
+    case UPDATE_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        updateProductLoading: false,
+      };
+
+    case UPDATE_PRODUCT_FAILURE:
+      return {
+        ...state,
+        updateProductLoading: false,
+        updateProductError: action.payload,
+      };
+
     default:
       return state;
   }

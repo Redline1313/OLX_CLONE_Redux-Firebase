@@ -33,13 +33,7 @@ const ViewMore = () => {
   const selectedCategory = queryParams.get("category");
   const queryParmasSearch = queryString.parse(location.search);
   const searchQuery = queryParmasSearch.searchQuery || "";
-
-  // const [products, setProducts] = useState([]);
-  // const [sortBy, setSortBy] = useState("Newly listed");
-  // const [minPrice, setMinPrice] = useState(0);
-  // const [maxPrice, setMaxPrice] = useState(1000000);
-  // const [displayCard2, setDisplayCard2] = useState(true);
-  // const [isLoading, setIsLoading] = useState(true);
+  const [selectedLocation, setSelectedLocation] = useState("Karachi");
 
   const dispatch = useDispatch();
   const viewMoreState = useSelector((state) => state.viewMore);
@@ -50,7 +44,14 @@ const ViewMore = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(ViewFetchProducts());
-  }, [dispatch]);
+
+    const queryParams = new URLSearchParams(location.search);
+    const locationParam = queryParams.get("location");
+
+    if (locationParam) {
+      setSelectedLocation(locationParam);
+    }
+  }, [dispatch, location]);
 
   const closeFilter = () => {
     setIsShow(false);
@@ -66,20 +67,26 @@ const ViewMore = () => {
       filtered = filtered.filter(
         (product) => product.category === selectedCategory
       );
-      console.log("products", products);
     }
-    filtered = filtered.filter((product) => {
-      const productTitle = product.title.toLowerCase();
-      return productTitle.includes(searchQuery.toLowerCase());
-    });
-    console.log("Before price filter:", filtered);
 
     filtered = filtered.filter((product) => {
       const productPrice = parseFloat(product.price);
       return productPrice >= minPrice && productPrice <= maxPrice;
     });
 
-    console.log("After price filter:", filtered);
+    filtered = filtered.filter((product) => {
+      const productTitle = product.title.toLowerCase();
+      const productLocation = product.location.toLowerCase();
+      const selectedLocationLower = selectedLocation.toLowerCase();
+
+      return (
+        productLocation.includes(selectedLocationLower) &&
+        productTitle.includes(searchQuery.toLowerCase())
+      );
+    });
+
+    console.log("After location filter:", filtered);
+
     return filtered;
   };
 
@@ -168,15 +175,6 @@ const ViewMore = () => {
             </ul>
           </div>
           <div className="line"></div>
-          <h3>LOCATION</h3>
-          <div className="box-location">
-            <select className="select-input" name="" id="">
-              <option value="khi">Karachi</option>
-              <option value="fsd">Faisalabad</option>
-              <option value="lhr">Lahore</option>
-              <option value="Isl">Islamabad</option>
-            </select>
-          </div>
           <div className="box-price">
             <h3>PRICE</h3>
             <p>Min Price: Rs {minPrice}</p>

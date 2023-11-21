@@ -1,4 +1,4 @@
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc } from "@firebase/firestore";
 import { db } from "../../config/firebase";
 import {
   FETCH_PRODUCTS_REQUEST,
@@ -24,6 +24,42 @@ export const fetchProducts = () => {
       dispatch({ type: FETCH_PRODUCTS_SUCCESS, payload: productsData });
     } catch (error) {
       dispatch({ type: FETCH_PRODUCTS_FAILURE, payload: error.message });
+    }
+  };
+};
+
+export const deleteProduct = (itemId) => {
+  return async (dispatch) => {
+    try {
+      // Delete the product by ID
+      const productRef = doc(db, "items", itemId);
+      await deleteDoc(productRef);
+
+      // Fetch products again after deletion
+      dispatch(fetchProducts());
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
+};
+
+export const deleteAllProducts = () => {
+  return async (dispatch) => {
+    try {
+      // Delete all products
+      const productsRef = collection(db, "items");
+      const productsSnapshot = await getDocs(productsRef);
+
+      const deletePromises = productsSnapshot.docs.map(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+
+      await Promise.all(deletePromises);
+
+      // Fetch products again after deletion
+      dispatch(fetchProducts());
+    } catch (error) {
+      console.error("Error deleting all products:", error);
     }
   };
 };

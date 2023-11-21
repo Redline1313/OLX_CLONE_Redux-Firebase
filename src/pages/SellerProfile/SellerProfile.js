@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { collection, query, where, getDocs } from "firebase/firestore";
-import { db } from "../../config/firebase";
 import Cards from "../../components/Cards/Cards";
 import profileIMG from "../../assets/profile-img.png";
 import "./SellerProfile.css";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CustomSkeleton } from "../../components/CustomSkeleton/CustomSkeleton";
+import { collection, getDocs, query, where } from "@firebase/firestore";
+import { db } from "../../config/firebase";
 
 function SellerProfile() {
   const { uid } = useParams();

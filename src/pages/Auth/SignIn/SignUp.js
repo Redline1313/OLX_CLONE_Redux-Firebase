@@ -4,11 +4,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { signUpAction } from "../../../store/actions/authActions";
-// import { UserContext } from "../../../App";
 
 const Signup = () => {
-  // const { name, setName } = useContext(UserContext);
-
   const [email, setEmail] = useState("");
 
   const [password, setPassword] = useState("");

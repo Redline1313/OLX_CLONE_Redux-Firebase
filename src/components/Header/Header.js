@@ -28,7 +28,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../config/firebase";
 import dropimg from "../../assets/drop.png";
 
-const Header = () => {
+const Header = ({ selectedLocation, setSelectedLocation }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [showProfile, setProfile] = useState(false);
   const [showMegaMenu, setMegaMenu] = useState(false);
@@ -36,14 +36,19 @@ const Header = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [user, setUser] = useState(null);
+  // const [selectedLocation, setSelectedLocation] = useState("Karachi");
 
   const navigate = useNavigate();
 
   const handleSearchSubmit = (event) => {
     setSearchQuery(event.target.value);
   };
-  const handleSerach = () => {
-    navigate(`/ViewMore?searchQuery=${encodeURIComponent(searchQuery)}`);
+  const handleSearch = () => {
+    const encodedSearchQuery = encodeURIComponent(searchQuery);
+    const encodedLocation = encodeURIComponent(selectedLocation);
+    navigate(
+      `/ViewMore?searchQuery=${encodedSearchQuery}&location=${encodedLocation}`
+    );
   };
   const handleShowMegaMenu = () => {
     setMegaMenu(!showMegaMenu);
@@ -59,6 +64,7 @@ const Header = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
+      console.log("auth", user);
       if (authUser) {
         setUser(authUser);
       } else {
@@ -159,10 +165,12 @@ const Header = () => {
                       )}
 
                       <div className="side-ul">
-                        <button>
-                          <FontAwesomeIcon icon={faBagShopping} />
-                          My Ads
-                        </button>
+                        <Link to={`/products/${user ? user.uid : ""}`}>
+                          <button>
+                            <FontAwesomeIcon icon={faBagShopping} />
+                            My Ads
+                          </button>
+                        </Link>
 
                         <button>
                           <FontAwesomeIcon icon={faHeart} />
@@ -259,6 +267,12 @@ const Header = () => {
                   Property
                 </a>
               </div>
+
+              <div>
+                <button>
+                  <Link to={"/admin/dashboard"}> ADMIN </Link>
+                </button>
+              </div>
             </div>
 
             <div className="header-bottom search-input-container ">
@@ -268,11 +282,17 @@ const Header = () => {
                 </Link>
               </div>
               <div className="top-bar-item">
-                <select className="select-input" name="" id="">
-                  <option value="khi">Karachi</option>
-                  <option value="fsd">Faisalabad</option>
-                  <option value="lhr">Lahore</option>
-                  <option value="Isl">Islamabad</option>
+                <select
+                  className="select-input"
+                  name=""
+                  id=""
+                  value={selectedLocation}
+                  onChange={(e) => setSelectedLocation(e.target.value)}
+                >
+                  <option value="Karachi">Karachi</option>
+                  <option value="Faisalabad">Faisalabad</option>
+                  <option value="Lahore">Lahore</option>
+                  <option value="Islamabad">Islamabad</option>
                 </select>
               </div>
               <div className="top-bar-item search-input-container">
@@ -287,7 +307,7 @@ const Header = () => {
                   icon={faSearch}
                   className="glass"
                   style={{ fontSize: "26px", color: "white" }}
-                  onClick={handleSerach}
+                  onClick={handleSearch}
                 />
               </div>
 
@@ -335,10 +355,10 @@ const Header = () => {
                             </div>
                             <div className="line" />
                             <li className="menu-item">
-                              <button>
+                              <Link to="/products">
                                 <FontAwesomeIcon icon={faBagShopping} />
                                 My Ads
-                              </button>
+                              </Link>
                             </li>
                             <li className="menu-item">
                               <button>

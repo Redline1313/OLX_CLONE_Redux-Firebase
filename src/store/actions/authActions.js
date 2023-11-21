@@ -1,10 +1,9 @@
 import {
   createUserWithEmailAndPassword,
-  signInWithPopup,
   signInWithEmailAndPassword,
+  signInWithPopup,
   updateProfile,
-} from "firebase/auth";
-import { auth, provider } from "../../config/firebase";
+} from "@firebase/auth";
 import {
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
@@ -14,6 +13,7 @@ import {
   GOOGLE_LOGIN_SUCCESS,
   GOOGLE_LOGIN_FAILURE,
 } from "../actionTypes/authActionTypes";
+import { auth, provider } from "../../config/firebase";
 
 export const signUpAction =
   (email, password, username, navigate) => async (dispatch) => {

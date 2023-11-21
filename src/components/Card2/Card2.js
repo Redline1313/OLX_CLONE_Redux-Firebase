@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { faPhone } from "@fortawesome/free-solid-svg-icons";
-import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 const Card2 = ({ itemId, image, price, title, brand, timestamp, location }) => {
   const formatDate = (timestamp) => {

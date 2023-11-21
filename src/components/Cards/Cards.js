@@ -4,7 +4,7 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 
-const Cards = ({ itemId, image, price, title, brand, timestamp }) => {
+const Cards = ({ itemId, image, price, title, brand, location, timestamp }) => {
   const formatDate = (timestamp) => {
     if (timestamp && timestamp.seconds) {
       const date = new Date(timestamp.seconds * 1000);
@@ -22,6 +22,7 @@ const Cards = ({ itemId, image, price, title, brand, timestamp }) => {
           <p className="card-price">Rs {price}</p>
           <p className="card-name">{title}</p>
           <p className="card-brand">{brand}</p>
+          <p className="card-brand">{location}</p>
           <p className="card-timestamp"> {formatDate(timestamp)}</p>
         </div>
       </Link>

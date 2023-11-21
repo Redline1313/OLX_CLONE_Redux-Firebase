@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { updatePassword } from "firebase/auth";
-import { auth } from "../../config/firebase";
+
 import { useNavigate } from "react-router-dom";
 import "./ChangePassword.css";
+import { updatePassword } from "@firebase/auth";
+import { auth } from "../../config/firebase";
 
 const ChangePassword = () => {
   const [newPassword, setNewPassword] = useState("");

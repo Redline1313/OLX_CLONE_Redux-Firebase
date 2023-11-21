@@ -6,6 +6,7 @@ import addItemReducer from "./addItemReducer";
 import homeReducer from "./homeReducer";
 import itemDetailsReducer from "./itemDetailsReducer";
 import viewMoreReducer from "./viewMoreReducer";
+import userReducer from "./userReducer";
 
 const rootReducer = combineReducers({
   login: loginReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   home: homeReducer,
   itemDetails: itemDetailsReducer,
   viewMore: viewMoreReducer,
+  user: userReducer,
 });
 
 export default rootReducer;

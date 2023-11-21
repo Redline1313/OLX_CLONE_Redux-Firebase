@@ -23,7 +23,7 @@ import { CustomSkeleton } from "../../components/CustomSkeleton/CustomSkeleton";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../store/actions/homeActions";
 
-function Home() {
+function Home({ selectedLocation }) {
   const dispatch = useDispatch();
   const { products, isLoading } = useSelector((state) => state.home);
 
@@ -32,38 +32,40 @@ function Home() {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // const bikesProducts = products
-  //   .slice(0, 8)
-  //   .filter((product) => product.category === "Vehicles");
-  // const rentProducts = products
-  //   .slice(0, 8)
-  //   .filter((product) => product.category === "Property for Rent");
-  // const homeAppliancesProducts = products
-  //   .slice(0, 8)
-  //   .filter((product) => product.category === "Electronics & Home Appliances");
-  // const decorProducts = products
-  //   .slice(0, 8)
-  //   .filter((product) => product.category === "Furniture & Home Decor");
-  // const fashionProducts = products
-  //   .slice(0, 8)
-  //   .filter((product) => product.category === "Fashion & Beauty");
-  // const hobbiesProducts = products
-  //   .slice(0, 8)
-  //   .filter((product) => product.category === "Books, Sports & Hobbies");
-
   const mobilePhoneProducts = products
-    ? products.slice(0, 8).filter((product) => product.category === "Mobiles")
+    ? products
+        .slice(0, 8)
+        .filter(
+          (product) =>
+            product.category === "Mobiles" &&
+            product.location === selectedLocation
+        )
     : [];
   const housesProducts = products
     ? products
         .slice(0, 8)
-        .filter((product) => product.category === "Property for Sale")
+        .filter(
+          (product) =>
+            product.category === "Property for Sale" &&
+            product.location === selectedLocation
+        )
     : [];
   const kidsProducts = products
-    ? products.slice(0, 8).filter((product) => product.category === "Kids")
+    ? products
+        .slice(0, 8)
+        .filter(
+          (product) =>
+            product.category === "Kids" && product.location === selectedLocation
+        )
     : [];
   const animalProducts = products
-    ? products.slice(0, 8).filter((product) => product.category === "Animals")
+    ? products
+        .slice(0, 8)
+        .filter(
+          (product) =>
+            product.category === "Animals" &&
+            product.location === selectedLocation
+        )
     : [];
 
   return (
@@ -77,61 +79,79 @@ function Home() {
         <h2>All categories</h2>
         <div className="cat-card-area">
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Mobiles`}>
+            <Link
+              to={`/ViewMore?category=Mobiles&location=${selectedLocation}`}
+            >
               <img src={circle} alt="Mobiles" />
             </Link>
             <h4>Mobiles</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Vehicles`}>
+            <Link
+              to={`/ViewMore?category=Vehicles&location=${selectedLocation}`}
+            >
               <img src={car} alt="Mobiles" />
             </Link>
             <h4>vehicles</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Property for Sale`}>
+            <Link
+              to={`/ViewMore?category=Property for Sale&location=${selectedLocation}`}
+            >
               <img src={house} alt="Mobiles" />
             </Link>
             <h4>Property For Sale</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Property for Rent`}>
+            <Link
+              to={`/ViewMore?category=Property for Rent&location=${selectedLocation}`}
+            >
               <img src={rent} alt="Mobiles" />
             </Link>
             <h4>Property For Rent</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Electronics & Home Appliances`}>
+            <Link
+              to={`/ViewMore?category=Electronics & Home Appliances&location=${selectedLocation}`}
+            >
               <img src={elec} alt="Mobiles" />
             </Link>
             <h4>Electronice Appliances</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Animals`}>
+            <Link
+              to={`/ViewMore?category=Animals&location=${selectedLocation}`}
+            >
               <img src={animal} alt="Mobiles" />
             </Link>
             <h4>Animals</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Furniture & Home Decor`}>
+            <Link
+              to={`/ViewMore?category=Furniture & Home Decor&location=${selectedLocation}`}
+            >
               <img src={decor} alt="Mobiles" />
             </Link>
             <h4>Furniture & Home Decor</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Fashion & Beauty`}>
+            <Link
+              to={`/ViewMore?category=Fashion & Beauty&location=${selectedLocation}`}
+            >
               <img src={fashion} alt="Mobiles" />
             </Link>
             <h4>Fashion & Beauty</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Books, Sports & Hobbies`}>
+            <Link
+              to={`/ViewMore?category=Books, Sports & Hobbies&location=${selectedLocation}`}
+            >
               <img src={book} alt="Mobiles" />
             </Link>
             <h4>Books, Sports & Hobbies</h4>
           </div>
           <div className="cat-card">
-            <Link to={`/ViewMore?category=Kids`}>
+            <Link to={`/ViewMore?category=Kids&location=${selectedLocation}`}>
               <img src={kids} alt="Mobiles" />
             </Link>
             <h4>Kids</h4>
@@ -143,7 +163,9 @@ function Home() {
         <div className="Mobile-area-title">
           <h2>Mobile Phone</h2>
           <p>
-            <Link to={`/ViewMore?category=Mobiles`}>
+            <Link
+              to={`/ViewMore?category=Mobiles&location=${selectedLocation}`}
+            >
               View more
               <FontAwesomeIcon
                 icon={faAngleRight}
@@ -164,6 +186,7 @@ function Home() {
                 image={product.imageUrl}
                 price={product.price}
                 title={product.title}
+                location={product.location}
                 brand={product.brand}
                 timestamp={product.timestamp}
               />
@@ -175,7 +198,9 @@ function Home() {
         <div className="Mobile-area-title">
           <h2>House for Sale</h2>
           <p>
-            <Link to={`/ViewMore?category=Property for Sale`}>
+            <Link
+              to={`/ViewMore?category=Property for Sale&location=${selectedLocation}`}
+            >
               View more
               <FontAwesomeIcon
                 icon={faAngleRight}
@@ -196,6 +221,7 @@ function Home() {
                 image={product.imageUrl}
                 price={product.price}
                 title={product.title}
+                location={product.location}
                 brand={product.brand}
                 timestamp={product.timestamp}
               />
@@ -207,7 +233,9 @@ function Home() {
         <div className="Mobile-area-title">
           <h2>Animals</h2>
           <p>
-            <Link to={`/ViewMore?category=Animals`}>
+            <Link
+              to={`/ViewMore?category=Animals&location=${selectedLocation}`}
+            >
               View more
               <FontAwesomeIcon
                 icon={faAngleRight}
@@ -228,6 +256,7 @@ function Home() {
                 image={product.imageUrl}
                 price={product.price}
                 title={product.title}
+                location={product.location}
                 brand={product.brand}
                 timestamp={product.timestamp}
               />
@@ -239,7 +268,7 @@ function Home() {
         <div className="Mobile-area-title">
           <h2>Kids Products</h2>
           <p>
-            <Link to={`/ViewMore?category=Kids`}>
+            <Link to={`/ViewMore?category=Kids&location=${selectedLocation}`}>
               View more
               <FontAwesomeIcon
                 icon={faAngleRight}
@@ -257,6 +286,7 @@ function Home() {
               image={product.imageUrl}
               price={product.price}
               title={product.title}
+              location={product.location}
               brand={product.brand}
               timestamp={product.timestamp}
             />
